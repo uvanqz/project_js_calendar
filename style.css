@@ -1,0 +1,130 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #c4c4c4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 800px;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.calender {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+}
+
+.calender .title {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.calender .title .month {
+    font-size: 25px;
+    border: solid 1px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.calender .title .years {
+    font-size: 35px;
+    border: solid 1px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.calender .title i {
+    font-size: 15px;
+    padding: 10px;
+    border: solid 1px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.calender .title i:hover {
+    background-color: white;
+    color: rgb(211, 105, 126);
+}
+
+.week {
+    background-color: white;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.week div {
+    padding: 10px;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.days div {
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.days div:hover {
+    background-color: white;
+    color: rgb(211, 105, 126);
+}
+
+.days .today {
+    background-color: rgb(255, 47, 47);
+    color: white;
+    border-radius: 50%;
+}
+
+.prev-date, .next-date {
+    color: white;
+    background-color: lightgray;
+}
+
+.events-list {
+    flex: 1;
+    padding: 20px;
+}
+
+.events-list .event {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(211, 105, 126);
+    border-radius: 10px;
+    color: white;
+}
+
+.events-list .event:first-child {
+    margin-top: 0;
+}
+
+.events-list .event:last-child {
+    margin-bottom: 0;
+}
