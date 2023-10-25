@@ -94,6 +94,7 @@ document.querySelector('.days').addEventListener('click', (e) => {
     }
 });
 
+
 const renderEvents = () => {
     const eventsList = document.querySelector('.events-list');
     eventsList.innerHTML = '';
@@ -103,11 +104,33 @@ const renderEvents = () => {
 
     for (const event of events) {
         const eventElement = document.createElement('div');
-        eventElement.classList.add('event');
+        eventElement.classList.add('event-item');
+        eventElement.setAttribute('data-date', event.date.toISOString()); // Устанавливаем атрибут с датой
         eventElement.innerHTML = `${event.date.toLocaleDateString()} - ${event.event}`;
         eventsList.append(eventElement);
     }
 };
+
+
+// Обработчик клика по событию в списке событий
+document.querySelector('.events-list').addEventListener('click', (e) => {
+    const eventElement = e.target;
+    if (eventElement.classList.contains('event-item')) {
+        const eventDate = new Date(eventElement.getAttribute('data-date'));
+
+        // Поиск события в массиве событий по дате
+        const eventIndex = events.findIndex((event) => event.date.getTime() === eventDate.getTime());
+
+        if (eventIndex !== -1) { // если событие найдено
+            const action = confirm(`Do you want to delete this event for ${eventDate.toLocaleDateString()}?`);
+            if (action) { // если пользователь нажал ОК
+                events.splice(eventIndex, 1);
+                renderEvents();
+            }
+        }
+    }
+});
+
 
 const addEvent = (date, event) => {
     events.push({ date, event });
