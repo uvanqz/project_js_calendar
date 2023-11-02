@@ -1,7 +1,9 @@
+// САМ КАЛЕНДАРЬ //
+
 const calendar = new Date(); // текущая дата и время.
 const events = []; //массив событий.
 
-const renderCalendar = () => { // отвечает за отображение календаря.
+function renderCalendar() { // отвечает за отображение календаря.
     calendar.setDate(1); //Устанавливается день месяца в 1 для объекта calendar
     // Получение ссылок на DOM элементы, такие как заголовок месяца, заголовок года и сетку дней:
     const titleMonth = document.querySelector('.month');
@@ -13,9 +15,9 @@ const renderCalendar = () => { // отвечает за отображение �
         'July', 'August', 'September', 'October', 'November', 'December'
     ];
     // Устанавливаем текст для заголовка месяца и года.
-    titleMonth.innerHTML = month[calendar.getMonth()];
+    titleMonth.innerHTML = month[calendar.getMonth()]; // Устанавливается текст заголовка месяца на основе текущего месяца в объекте calendar
     const years = calendar.getFullYear(); // текущий год
-    titleYears.innerHTML = years;
+    titleYears.innerHTML = years; // текст заголовка года.
 
     const lastDays = new Date(calendar.getFullYear(), calendar.getMonth() + 1, 0).getDate(); //последний день текущего месяца
     const lastDaysGet = new Date(calendar.getFullYear(), calendar.getMonth() + 1, 0).getDay(); // последний день недели
@@ -79,23 +81,21 @@ yearsRight.addEventListener('click', () => {
     renderCalendar();
 });
 
+// СОБЫТИЯ //
+
 // Обработчик клика по дню календаря
 document.querySelector('.days').addEventListener('click', (e) => {
     const dateCell = e.target; // Получаем элемент, на котором был клик.
-    if (dateCell.getAttribute('data-date')) {
-        const selectedDate = new Date(calendar);
-        selectedDate.setDate(parseInt(dateCell.getAttribute('data-date')));
-
-        const event = prompt(`Enter an event for ${selectedDate.toLocaleDateString()}:`); // date в строку
-        if (event) { // если пользователь нажал ОК
-            addEvent(selectedDate, event);
-            dateCell.classList.add('selected');
-        }
+    const selectedDate = new Date(calendar);
+    selectedDate.setDate(parseInt(dateCell.getAttribute('data-date')));
+    const event = prompt(`Добавить событие на ${selectedDate.toLocaleDateString()}:`); // date в строку
+    if (event != null) { // если пользователь нажал ОК
+        addEvent(selectedDate, event);
+        dateCell.classList.add('selected');
     }
 });
 
-
-const renderEvents = () => {
+function renderEvents() {
     const eventsList = document.querySelector('.events-list');
     eventsList.innerHTML = '';
 
@@ -111,7 +111,6 @@ const renderEvents = () => {
     }
 };
 
-
 // Обработчик клика по событию в списке событий
 document.querySelector('.events-list').addEventListener('click', (e) => {
     const eventElement = e.target;
@@ -122,15 +121,14 @@ document.querySelector('.events-list').addEventListener('click', (e) => {
         const eventIndex = events.findIndex((event) => event.date.getTime() === eventDate.getTime());
 
         if (eventIndex !== -1) { // если событие найдено
-            const action = confirm(`Do you want to delete this event for ${eventDate.toLocaleDateString()}?`);
-            if (action) { // если пользователь нажал ОК
+            const action = confirm(`Вы действительно хотите удалить событие на ${eventDate.toLocaleDateString()}?`);
+            if (action != null) { // если пользователь нажал ОК
                 events.splice(eventIndex, 1);
                 renderEvents();
             }
         }
     }
 });
-
 
 const addEvent = (date, event) => {
     events.push({ date, event });
